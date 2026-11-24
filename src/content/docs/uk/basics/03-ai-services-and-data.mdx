@@ -13,6 +13,7 @@ sidebar:
 import Evidence from '../../../../components/Evidence.astro';
 import Check from '../../../../components/Check.astro';
 import { pageUrl } from '../../../../i18n/ui';
+import Sources from '../../../../components/Sources.astro';
 
 ## Навіщо мені це знати?
 
@@ -218,6 +219,8 @@ Anthropic пише, що дані, які вже потрапили в навч�
 
 ## Джерела
 
+<Sources>
+
 Читати джерела не обов’язково: вони тут, щоб мене можна було перевірити. Літера біля кожного джерела — категорія доказовості, тобто вид підтвердження. Що означають літери, написано на сторінці <a href={pageUrl('uk', 'reference/evidence')}>«Категорії доказовості та джерела»</a>. Усі джерела уроку — довідка й правила самих компаній: так компанія описує себе, а незалежної перевірки того, чи дотримується вона цього насправді, немає. Посилання щодо кожного сервісу зібрано на довідковій сторінці <a href={pageUrl('uk', 'reference/services')}>«ШІ-сервіси: довідка на дату»</a>.
 
 1. **Довідка OpenAI про дані в ChatGPT** (OpenAI — компанія, яка робить ChatGPT).
@@ -255,3 +258,4 @@ Anthropic пише, що дані, які вже потрапили в навч�
    Наскільки довіряти: **B** — описи власних правил компаній.
    Посилання (англійською): [Your activity history](https://support.microsoft.com/en-us/privacy/microsoft-copilot/activity-history), [Copilot Terms of Use](https://www.microsoft.com/en-us/microsoft-copilot/for-individuals/termsofuse), [Copilot for young people](https://support.microsoft.com/en-us/privacy/microsoft-copilot/young-people), [DeepSeek Privacy Policy](https://cdn.deepseek.com/policies/en-US/deepseek-privacy-policy.html). Перевірено 23 листопада 2026 року.
 
+</Sources>

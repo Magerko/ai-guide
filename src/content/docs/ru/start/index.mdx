@@ -13,6 +13,7 @@ sidebar:
 import { LinkButton } from '@astrojs/starlight/components';
 import Evidence from '../../../../components/Evidence.astro';
 import { pageUrl } from '../../../../i18n/ui';
+import Sources from '../../../../components/Sources.astro';
 
 Эта страница — карта. За несколько минут ты узнаешь, что есть в гайде, как читать уроки и что понадобится для упражнений.
 
@@ -87,6 +88,8 @@ import { pageUrl } from '../../../../i18n/ui';
 
 ## Источники
 
+<Sources>
+
 Читать источники не обязательно: они здесь, чтобы меня можно было проверить.
 
 1. **Исследования о том, как вспоминание помогает учиться**: обзор учебных приёмов J. Dunlosky и соавторов, 2013; сводные разборы многих исследований — C. Rowland, 2014, и C. Yang и соавторов, 2021.
@@ -110,6 +113,8 @@ import { pageUrl } from '../../../../i18n/ui';
    Ссылка: [Gemini Apps limits & feature availability](https://support.google.com/gemini/answer/16275805?hl=en) (на английском). Проверено 23 ноября 2026 года.
 
 Подробнее о бесплатных планах и ценах — на странице <a href={pageUrl('ru', 'reference/services')}>«AI-сервисы: справка на дату»</a>.
+
+</Sources>
 
 ## Начни с первого урока
 

@@ -13,6 +13,7 @@ sidebar:
 import Evidence from '../../../../components/Evidence.astro';
 import Check from '../../../../components/Check.astro';
 import { pageUrl } from '../../../../i18n/ui';
+import Sources from '../../../../components/Sources.astro';
 
 ## Зачем мне это знать?
 
@@ -218,6 +219,8 @@ Anthropic пишет, что данные, уже попавшие в обуче
 
 ## Источники
 
+<Sources>
+
 Читать источники не обязательно: они здесь, чтобы меня можно было проверить. Буква рядом с каждым источником — категория доказательности, то есть вид подтверждения. Что значат буквы, написано на странице <a href={pageUrl('ru', 'reference/evidence')}>«Категории доказательности и источники»</a>. Все источники урока — разделы помощи и правила самих компаний: так компания описывает себя, а независимой проверки того, как это соблюдается на деле, нет. Ссылки по каждому сервису собраны на справочной странице <a href={pageUrl('ru', 'reference/services')}>«AI-сервисы: справка на дату»</a>.
 
 1. **Раздел помощи OpenAI о данных в ChatGPT** (OpenAI — компания, которая делает ChatGPT).
@@ -255,3 +258,4 @@ Anthropic пишет, что данные, уже попавшие в обуче
    Насколько верить: **B** — описания собственных правил компаний.
    Ссылки (на английском): [Your activity history](https://support.microsoft.com/en-us/privacy/microsoft-copilot/activity-history), [Copilot Terms of Use](https://www.microsoft.com/en-us/microsoft-copilot/for-individuals/termsofuse), [Copilot for young people](https://support.microsoft.com/en-us/privacy/microsoft-copilot/young-people), [DeepSeek Privacy Policy](https://cdn.deepseek.com/policies/en-US/deepseek-privacy-policy.html). Проверено 23 ноября 2026 года.
 
+</Sources>

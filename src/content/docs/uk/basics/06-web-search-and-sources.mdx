@@ -13,6 +13,7 @@ sidebar:
 import Evidence from '../../../../components/Evidence.astro';
 import Check from '../../../../components/Check.astro';
 import { pageUrl } from '../../../../i18n/ui';
+import Sources from '../../../../components/Sources.astro';
 
 ## Навіщо мені це знати?
 
@@ -245,6 +246,8 @@ import { pageUrl } from '../../../../i18n/ui';
 
 ## Джерела
 
+<Sources>
+
 Читати джерела не обов’язково: вони тут, щоб мене можна було перевірити. Літера біля кожного джерела — категорія доказовості, тобто вид підтвердження, на який спирається твердження. Що означають літери, написано на сторінці <a href={pageUrl('uk', 'reference/evidence')}>«Категорії доказовості та джерела»</a>.
 
 1. **Документація Anthropic і Google про пошук в інтернеті для програмістів.**
@@ -273,3 +276,5 @@ import { pageUrl } from '../../../../i18n/ui';
    Посилання (англійською): [OpenAI: пошук](https://help.openai.com/en/articles/9237897-chatgpt-search-faq), [OpenAI: чи каже ChatGPT правду](https://help.openai.com/en/articles/8313428-does-chatgpt-tell-the-truth), [Anthropic](https://platform.claude.com/docs/en/test-and-evaluate/strengthen-guardrails/reduce-hallucinations). Перевірено 24 листопада 2026 року.
 
 Ознаки офіційного сайту, чотири запитання до посилання, орієнтир «скільки зусиль» і висновок, що відповідь може містити фразу, якої немає на знайдених сторінках, — мої поради й висновки без вимірювань. Про дату зрізу знань і вигадані джерела без пошуку — джерела другого уроку.
+
+</Sources>

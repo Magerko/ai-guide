@@ -1,0 +1,32 @@
+---
+import Default from '@astrojs/starlight/components/Footer.astro';
+import { REPO_URL } from '../../site-config';
+import { langOf, ui } from '../../i18n/ui';
+
+const { entry, locale } = Astro.locals.starlightRoute;
+const t = ui[langOf(locale)];
+
+// Only lessons and labs (B01, L01...); the start page has an S id and gets no line.
+const show = /^[BL]\d/.test(entry.data.lessonId ?? '');
+const page = new URL(Astro.url.pathname, Astro.site ?? 'http://localhost:4321').href;
+const href = `${REPO_URL}/issues/new?template=content-error.yml&page=${encodeURIComponent(page)}`;
+---
+
+{
+  show && (
+    <p class="feedback" data-pagefind-ignore>
+      {t.feedbackBefore}
+      <a href={href}>{t.feedbackLink}</a>
+      {t.feedbackAfter}
+    </p>
+  )
+}
+<Default><slot /></Default>
+
+<style>
+  .feedback {
+    margin: 2rem 0 0;
+    font-size: var(--sl-text-sm);
+    color: var(--sl-color-gray-3);
+  }
+</style>

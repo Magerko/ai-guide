@@ -44,7 +44,9 @@ export default defineConfig({
             },
           ]
         : [],
+      routeMiddleware: './src/route-data/og-image.ts',
       components: {
+        Footer: './src/components/overrides/Footer.astro',
         PageTitle: './src/components/overrides/PageTitle.astro',
         Sidebar: './src/components/overrides/Sidebar.astro',
       },

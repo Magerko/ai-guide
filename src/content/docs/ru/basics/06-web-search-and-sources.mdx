@@ -13,6 +13,7 @@ sidebar:
 import Evidence from '../../../../components/Evidence.astro';
 import Check from '../../../../components/Check.astro';
 import { pageUrl } from '../../../../i18n/ui';
+import Sources from '../../../../components/Sources.astro';
 
 ## Зачем мне это знать?
 
@@ -245,6 +246,8 @@ import { pageUrl } from '../../../../i18n/ui';
 
 ## Источники
 
+<Sources>
+
 Читать источники не обязательно: они здесь, чтобы меня можно было проверить. Буква рядом с каждым источником — категория доказательности, то есть вид подтверждения, на который опирается утверждение. Что значат буквы, написано на странице <a href={pageUrl('ru', 'reference/evidence')}>«Категории доказательности и источники»</a>.
 
 1. **Документация Anthropic и Google о поиске в интернете для программистов.**
@@ -273,3 +276,5 @@ import { pageUrl } from '../../../../i18n/ui';
    Ссылки (на английском): [OpenAI: поиск](https://help.openai.com/en/articles/9237897-chatgpt-search-faq), [OpenAI: говорит ли ChatGPT правду](https://help.openai.com/en/articles/8313428-does-chatgpt-tell-the-truth), [Anthropic](https://platform.claude.com/docs/en/test-and-evaluate/strengthen-guardrails/reduce-hallucinations). Проверено 24 ноября 2026 года.
 
 Признаки официального сайта, четыре вопроса к ссылке, ориентир «сколько усилий» и вывод, что ответ может содержать фразу, которой нет на найденных страницах, — мои советы и выводы без измерений. О дате среза знаний и выдуманных источниках без поиска — источники второго урока.
+
+</Sources>

@@ -13,6 +13,7 @@ sidebar:
 import Evidence from '../../../../components/Evidence.astro';
 import Check from '../../../../components/Check.astro';
 import { pageUrl } from '../../../../i18n/ui';
+import Sources from '../../../../components/Sources.astro';
 
 export const sites = import.meta.env.BASE_URL.replace(/\/$/, '') + '/labs/l01';
 
@@ -317,6 +318,8 @@ OpenAI заявляет, что Codex есть и в бесплатном пла
 
 ## Источники и материалы
 
+<Sources>
+
 Читать источники не обязательно: они здесь, чтобы меня можно было проверить. Буква рядом с источником — категория доказательности, то есть вид подтверждения. Что значат буквы, написано на странице <a href={pageUrl('ru', 'reference/evidence')}>«Категории доказательности и источники»</a>. Результаты эксперимента метками не помечены: это четыре моих запуска, и их ограничения описаны в тексте.
 
 1. **Документация Claude Code: доступ, разрешения, ограждение, начало работы, модели.**
@@ -337,3 +340,5 @@ OpenAI заявляет, что Codex есть и в бесплатном пла
 **Материалы эксперимента.** Задание приведено на этой странице полностью, критерии — в пересказе. Сайты — файлы агентов без моих правок: <a href={sites + '/claude-run1/index.html'} target="_blank" rel="noopener">Claude Code, первый запуск</a> · <a href={sites + '/claude-run2/index.html'} target="_blank" rel="noopener">Claude Code, второй запуск</a> · <a href={sites + '/codex-run1/index.html'} target="_blank" rel="noopener">Codex, первый запуск</a> · <a href={sites + '/codex-run2/index.html'} target="_blank" rel="noopener">Codex, второй запуск</a>.
 
 **Условия эксперимента** для тех, кто захочет повторить: 23 ноября 2026 года, Windows 11; Claude Code 2.1.330, модель Fable 5.2 (не модель по умолчанию — по документации ею была Opus 5.5); Codex 0.171.0, модель GPT-6.2 Sol; оба по моим платным подпискам (Claude и ChatGPT), каждый запуск в пустой папке. Сайты в браузере я открывал 24 ноября 2026 года.
+
+</Sources>

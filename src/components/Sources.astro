@@ -1,0 +1,53 @@
+---
+import { langOf, ui } from '../i18n/ui';
+
+const lang = langOf(Astro.locals.starlightRoute?.locale);
+---
+
+<details class="sources">
+  <summary>{ui[lang].showSources}</summary>
+  <div class="body"><slot /></div>
+</details>
+
+<script is:inline>
+  // I open the block when the URL hash points inside it, so a link never lands in a closed section.
+  (function () {
+    function reveal() {
+      var id = decodeURIComponent(location.hash.slice(1));
+      var el = id && document.getElementById(id);
+      var box = el && el.closest('details.sources');
+      if (box) box.open = true;
+    }
+    reveal();
+    window.addEventListener('hashchange', reveal);
+    // I open every block before printing so the sources are on paper.
+    window.addEventListener('beforeprint', function () {
+      document.querySelectorAll('details.sources').forEach(function (d) { d.open = true; });
+    });
+  })();
+</script>
+
+<style>
+  .sources {
+    margin: 1rem 0;
+    border: 1px solid var(--sl-color-hairline);
+    border-radius: 0.5rem;
+    background: var(--sl-color-bg-nav);
+  }
+  summary {
+    padding: 0.6rem 0.8rem;
+    cursor: pointer;
+    font-weight: 600;
+    color: var(--sl-color-white);
+  }
+  .body {
+    padding: 0.2rem 0.8rem 0.6rem;
+    border-top: 1px solid var(--sl-color-hairline);
+  }
+  .body > :global(:first-child) {
+    margin-top: 0.8rem;
+  }
+  .body > :global(:last-child) {
+    margin-bottom: 0;
+  }
+</style>
