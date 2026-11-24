@@ -50,7 +50,7 @@ export default defineConfig({
       },
       sidebar: [
         group('С чего начать', 'З чого почати', 'start'),
-        group('AI для каждого', 'AI для кожного', 'basics'),
+        group('AI для каждого', 'ШІ для кожного', 'basics'),
         group('Agent Labs', 'Agent Labs', 'labs'),
         group('Справочник', 'Довідник', 'reference'),
       ],
