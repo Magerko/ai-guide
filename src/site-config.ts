@@ -3,4 +3,4 @@ export const REPO_URL = 'https://github.com/Magerko/ai-guide';
 
 // GoatCounter site code (https://<code>.goatcounter.com). Empty string keeps the counter fully off:
 // no script, no sidebar block, no requests.
-export const GOATCOUNTER_CODE = '';
+export const GOATCOUNTER_CODE = 'magerdev1';
