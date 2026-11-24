@@ -1,0 +1,88 @@
+---
+import Default from '@astrojs/starlight/components/Sidebar.astro';
+import { GOATCOUNTER_CODE } from '../../site-config';
+import { langOf, ui } from '../../i18n/ui';
+
+const lang = langOf(Astro.locals.starlightRoute.locale);
+const t = ui[lang];
+const endpoint = GOATCOUNTER_CODE ? `https://${GOATCOUNTER_CODE}.goatcounter.com/counter` : '';
+---
+
+<Default><slot /></Default>
+
+{
+  endpoint && (
+    <p
+      class="visit-counter"
+      data-pagefind-ignore
+      data-endpoint={endpoint}
+      data-locale={lang === 'uk' ? 'uk-UA' : 'ru-RU'}
+      hidden
+    >
+      {t.visits} {t.visitsTotal} <span data-total></span>
+      <span data-today-wrap hidden> · {t.visitsToday} <span data-today></span></span>
+    </p>
+  )
+}
+
+<script>
+  // The counter reports visits (first hit of a session per path), not unique people, and "today" is a UTC day.
+  const box = document.querySelector<HTMLElement>('.visit-counter');
+  if (box && window.top === window.self) {
+    const endpoint = box.dataset.endpoint!;
+    const fmt = new Intl.NumberFormat(box.dataset.locale);
+    const today = new Date().toISOString().slice(0, 10);
+    const cacheKey = `visit-counter:${endpoint}:${today}`;
+
+    const read = async (query: string): Promise<number | null> => {
+      try {
+        const res = await fetch(`${endpoint}/TOTAL.json${query}`);
+        if (!res.ok) return null;
+        const digits = String((await res.json()).count ?? '').replace(/\D/g, '');
+        return digits ? Number(digits) : null;
+      } catch {
+        return null;
+      }
+    };
+
+    const show = (total: number, day: number | null) => {
+      box.querySelector('[data-total]')!.textContent = fmt.format(total);
+      if (day !== null) {
+        box.querySelector('[data-today]')!.textContent = fmt.format(day);
+        box.querySelector<HTMLElement>('[data-today-wrap]')!.hidden = false;
+      }
+      box.hidden = false;
+    };
+
+    const load = async () => {
+      try {
+        const cached = sessionStorage.getItem(cacheKey);
+        if (cached) {
+          const { total, day, at } = JSON.parse(cached);
+          if (Date.now() - at < 10 * 60 * 1000) return show(total, day);
+        }
+      } catch {}
+      const [total, day] = await Promise.all([read(''), read(`?start=${today}`)]);
+      if (total === null) return;
+      show(total, day);
+      try {
+        sessionStorage.setItem(cacheKey, JSON.stringify({ total, day, at: Date.now() }));
+      } catch {}
+    };
+    load();
+  }
+</script>
+
+<style>
+  .visit-counter {
+    margin: 1rem 0 0;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--sl-color-gray-6);
+    font-size: var(--sl-text-xs);
+    color: var(--sl-color-gray-3);
+  }
+  .visit-counter[hidden],
+  .visit-counter [hidden] {
+    display: none;
+  }
+</style>

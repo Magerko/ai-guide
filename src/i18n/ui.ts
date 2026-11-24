@@ -14,6 +14,9 @@ export const ui = {
       D: 'Неподтверждённое утверждение',
     },
     check: 'Проверь себя',
+    visits: 'Визитов:',
+    visitsTotal: 'всего',
+    visitsToday: 'сегодня',
   },
   uk: {
     requires: 'Перед цим уроком корисно пройти:',
@@ -28,6 +31,9 @@ export const ui = {
       D: 'Непідтверджене твердження',
     },
     check: 'Перевір себе',
+    visits: 'Візитів:',
+    visitsTotal: 'усього',
+    visitsToday: 'сьогодні',
   },
 } as const;
 
