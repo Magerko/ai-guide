@@ -74,11 +74,14 @@ const endpoint = GOATCOUNTER_CODE ? `https://${GOATCOUNTER_CODE}.goatcounter.com
 </script>
 
 <style>
+  /* Pinned to the bottom of the menu column and indented like the menu items (0.5rem). */
   .visit-counter {
-    margin: 1rem 0 0;
-    padding-top: 0.75rem;
-    border-top: 1px solid var(--sl-color-gray-6);
-    font-size: var(--sl-text-xs);
+    margin: auto 0.5rem 0;
+    padding: 0.75rem 0 1rem;
+    border-top: 1px solid var(--sl-color-hairline-light);
+    font-size: var(--sl-text-2xs);
+    line-height: 1.5;
+    font-variant-numeric: tabular-nums;
     color: var(--sl-color-gray-3);
   }
   .visit-counter[hidden],

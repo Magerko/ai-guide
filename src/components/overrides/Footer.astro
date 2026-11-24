@@ -1,32 +1,113 @@
 ---
-import Default from '@astrojs/starlight/components/Footer.astro';
+import EditLink from '@astrojs/starlight/components/EditLink.astro';
+import LastUpdated from '@astrojs/starlight/components/LastUpdated.astro';
+import Pagination from '@astrojs/starlight/components/Pagination.astro';
 import { REPO_URL } from '../../site-config';
 import { langOf, ui } from '../../i18n/ui';
 
-const { entry, locale } = Astro.locals.starlightRoute;
+const { entry, locale, editUrl, lastUpdated } = Astro.locals.starlightRoute;
 const t = ui[langOf(locale)];
 
 // Only lessons and labs (B01, L01...); the start page has an S id and gets no line.
 const show = /^[BL]\d/.test(entry.data.lessonId ?? '');
 const page = new URL(Astro.url.pathname, Astro.site ?? 'http://localhost:4321').href;
 const href = `${REPO_URL}/issues/new?template=content-error.yml&page=${encodeURIComponent(page)}`;
+const hasMetaRow = Boolean(editUrl || lastUpdated);
 ---
 
-{
-  show && (
-    <p class="feedback" data-pagefind-ignore>
-      {t.feedbackBefore}
-      <a href={href}>{t.feedbackLink}</a>
-      {t.feedbackAfter}
-    </p>
-  )
-}
-<Default><slot /></Default>
+<footer class="guide-footer">
+  {
+    (show || hasMetaRow) && (
+      <div class="guide-meta">
+        {show && (
+          <p class="feedback" data-pagefind-ignore>
+            {t.feedbackBefore}
+            <a href={href}>{t.feedbackLink}</a>
+            {t.feedbackAfter}
+          </p>
+        )}
+        {hasMetaRow && (
+          <div class="meta-row">
+            <EditLink />
+            <LastUpdated />
+          </div>
+        )}
+      </div>
+    )
+  }
+  <Pagination />
+</footer>
 
 <style>
-  .feedback {
-    margin: 2rem 0 0;
+  .guide-footer {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-top: 3rem;
+    container-type: inline-size;
+  }
+
+  .guide-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--sl-color-hairline-light);
     font-size: var(--sl-text-sm);
+    line-height: 1.6;
     color: var(--sl-color-gray-3);
+  }
+  .guide-meta p {
+    margin: 0;
+    text-wrap: pretty;
+  }
+  .meta-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.5rem 2rem;
+  }
+
+  .guide-footer :global(.pagination-links) {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1rem;
+  }
+  @container (min-width: 34rem) {
+    .guide-footer :global(.pagination-links) {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    /* "Next" stays in the right column even on the first page, where there is no "Previous". */
+    .guide-footer :global(.pagination-links [rel='next']) {
+      grid-column: 2;
+    }
+  }
+  .guide-footer :global(.pagination-links a) {
+    align-items: center;
+    gap: 0.75rem;
+    min-height: 5.75rem;
+    padding: 1rem 1.25rem;
+    font-size: var(--sl-text-sm);
+    line-height: 1.4;
+    color: var(--sl-color-gray-3);
+  }
+  .guide-footer :global(.pagination-links a > span) {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    min-width: 0;
+  }
+  .guide-footer :global(.pagination-links br) {
+    display: none;
+  }
+  .guide-footer :global(.pagination-links .link-title) {
+    font-size: var(--sl-text-lg);
+    font-weight: 600;
+    line-height: 1.35;
+    text-wrap: balance;
+  }
+  .guide-footer :global(.pagination-links svg) {
+    width: 1.25rem;
+    height: 1.25rem;
   }
 </style>

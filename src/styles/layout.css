@@ -1,0 +1,87 @@
+/*
+  Page frame. On wide screens the menu, the text column and "On this page" live in one centred
+  frame, so free space goes to equal margins outside it instead of random gaps between columns.
+  Unlayered on purpose: it has to beat Starlight's layered styles without specificity tricks.
+*/
+
+:root {
+  --guide-frame: 88rem;
+  --guide-toc-width: var(--sl-sidebar-width);
+  /* 42.5rem at 17px keeps a line of Russian text at about 75 characters. */
+  --sl-content-width: 42.5rem;
+}
+
+@media (min-width: 50rem) {
+  .sl-markdown-content {
+    font-size: 1.0625rem;
+  }
+
+  /* The menu shares the page background and is split off by a hairline, like the TOC on the right. */
+  [data-has-sidebar] .sidebar-pane {
+    background-color: var(--sl-color-bg);
+    border-inline-end-color: var(--sl-color-hairline);
+  }
+}
+
+@media (min-width: 72rem) and (max-width: 79.99rem) {
+  :root {
+    --guide-toc-width: 15rem;
+  }
+}
+
+@media (min-width: 72rem) {
+  :root:not([data-has-toc]) {
+    --guide-toc-width: 0rem;
+  }
+
+  /* Fixed elements resolve percentages against the viewport, in-flow ones against the page, so I
+     never use 100vw here: that would drift by the scrollbar width on desktop browsers. */
+  [data-has-sidebar] .sidebar-pane {
+    inset-inline-start: max(0px, 50% - var(--guide-frame) / 2);
+  }
+
+  [data-has-sidebar] .main-frame {
+    width: 100%;
+    max-width: var(--guide-frame);
+    margin-inline: auto;
+  }
+
+  [data-has-sidebar] .page > header.header {
+    padding-inline: calc(max(0px, 50% - var(--guide-frame) / 2) + var(--sl-nav-pad-x));
+  }
+
+  /* Header columns follow the frame: the site title over the menu, search from the text's left edge. */
+  [data-has-sidebar] .page > header.header > .header {
+    grid-template-columns:
+      minmax(
+        calc(
+          var(--sl-sidebar-width) - var(--sl-nav-pad-x) - var(--sl-nav-gap) +
+            max(
+              var(--sl-content-pad-x),
+              (
+                  100% + 2 * var(--sl-nav-pad-x) - var(--sl-sidebar-width) -
+                    var(--guide-toc-width) - var(--sl-content-width)
+                ) / 2
+            )
+        ),
+        auto
+      )
+      1fr
+      auto;
+  }
+
+  .right-sidebar-container,
+  .right-sidebar {
+    width: var(--guide-toc-width);
+  }
+
+  [data-has-sidebar][data-has-toc] .main-pane {
+    --sl-content-margin-inline: auto;
+    width: calc(100% - var(--guide-toc-width));
+  }
+
+  .right-sidebar-panel .sl-container {
+    width: auto;
+    max-width: none;
+  }
+}
