@@ -1,0 +1,65 @@
+---
+import { langOf, pageUrl, ui } from '../i18n/ui';
+
+interface Props {
+  level: 'A' | 'B' | 'C' | 'D';
+}
+
+const { level } = Astro.props;
+const lang = langOf(Astro.locals.starlightRoute?.locale);
+const t = ui[lang];
+---
+
+<details class={`evidence evidence-${level.toLowerCase()}`}>
+  <summary>
+    <span class="level">{level}</span>
+    <span class="caption">{t.evidenceLabel}</span>
+  </summary>
+  <div class="body">
+    <p>{t.levels[level]}</p>
+    <a href={pageUrl(lang, 'reference/evidence')}>{t.evidenceMore}</a>
+  </div>
+</details>
+
+<style>
+  .evidence {
+    --ev-color: var(--sl-color-gray-3);
+    display: block;
+    margin: 0.75rem 0;
+    max-width: 32rem;
+    font-size: var(--sl-text-sm);
+    border: 1px solid var(--ev-color);
+    border-radius: 0.5rem;
+    background: var(--sl-color-bg-nav);
+  }
+  .evidence-a { --ev-color: var(--sl-color-green); }
+  .evidence-b { --ev-color: var(--sl-color-blue); }
+  .evidence-c { --ev-color: var(--sl-color-orange); }
+  .evidence-d { --ev-color: var(--sl-color-red); }
+  summary {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.35rem 0.6rem;
+    cursor: pointer;
+    color: var(--sl-color-white);
+  }
+  .level {
+    display: inline-grid;
+    place-items: center;
+    min-width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 0.35rem;
+    font-weight: 700;
+    color: var(--sl-color-black);
+    background: var(--ev-color);
+  }
+  .body {
+    padding: 0 0.6rem 0.6rem;
+    border-top: 1px solid var(--sl-color-hairline);
+  }
+  .body p {
+    margin: 0.5rem 0;
+    color: var(--sl-color-text);
+  }
+</style>

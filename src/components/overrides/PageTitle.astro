@@ -1,0 +1,79 @@
+---
+import Default from '@astrojs/starlight/components/PageTitle.astro';
+import { getCollection } from 'astro:content';
+import { langOf, pageUrl, ui } from '../../i18n/ui';
+
+const { entry, locale } = Astro.locals.starlightRoute;
+const data = entry.data;
+const lang = langOf(locale);
+const t = ui[lang];
+
+const isLesson = Boolean(data.lessonId);
+const requires = data.requires ?? [];
+let prerequisites: { id: string; title: string; href: string }[] = [];
+
+if (requires.length > 0) {
+  const docs = await getCollection('docs', (d) => d.id.startsWith(`${lang}/`));
+  prerequisites = requires.flatMap((id) => {
+    const found = docs.find((d) => d.data.lessonId === id);
+    if (!found) return [];
+    const path = found.id.replace(/^[^/]+\//, '').replace(/\/?index$/, '');
+    return [{ id, title: found.data.title, href: pageUrl(lang, path) }];
+  });
+}
+
+const verified = isLesson && data.lastVerified
+  ? new Intl.DateTimeFormat(lang === 'uk' ? 'uk-UA' : 'ru-RU', {
+      dateStyle: 'long',
+      timeZone: 'UTC',
+    }).format(data.lastVerified)
+  : null;
+const showMeta = isLesson || data.status === 'draft';
+---
+
+<Default><slot /></Default>
+
+{
+  showMeta && (
+    <div class="lesson-meta">
+      {data.status === 'draft' && <span class="lesson-draft">{t.draft}</span>}
+      {verified && (
+        <p>
+          {t.verified} <time datetime={data.lastVerified.toISOString().slice(0, 10)}>{verified}</time>
+        </p>
+      )}
+      {prerequisites.length > 0 && (
+        <p>
+          {t.requires}{' '}
+          {prerequisites.map((p, i) => (
+            <>
+              {i > 0 && ', '}
+              <a href={p.href}>
+                {p.id}: {p.title}
+              </a>
+            </>
+          ))}
+        </p>
+      )}
+    </div>
+  )
+}
+
+<style>
+  .lesson-meta {
+    margin-top: 0.75rem;
+    font-size: var(--sl-text-sm);
+    color: var(--sl-color-gray-2);
+  }
+  .lesson-meta p {
+    margin: 0.25rem 0 0;
+  }
+  .lesson-draft {
+    display: inline-block;
+    padding: 0.1rem 0.6rem;
+    border-radius: 999px;
+    font-weight: 600;
+    color: var(--sl-color-black);
+    background: var(--sl-color-orange);
+  }
+</style>

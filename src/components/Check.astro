@@ -1,0 +1,55 @@
+---
+import { langOf, ui } from '../i18n/ui';
+
+interface Props {
+  question: string;
+}
+
+const { question } = Astro.props;
+const lang = langOf(Astro.locals.starlightRoute?.locale);
+---
+
+<details class="check">
+  <summary>
+    <span class="tag">{ui[lang].check}</span>
+    <span class="question">{question}</span>
+  </summary>
+  <div class="answer"><slot /></div>
+</details>
+
+<style>
+  .check {
+    margin: 1rem 0;
+    border: 1px solid var(--sl-color-accent);
+    border-radius: 0.5rem;
+    background: var(--sl-color-bg-nav);
+  }
+  summary {
+    padding: 0.6rem 0.8rem;
+    cursor: pointer;
+    color: var(--sl-color-white);
+  }
+  .tag {
+    display: block;
+    margin-bottom: 0.15rem;
+    font-size: var(--sl-text-xs);
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--sl-color-text-accent);
+  }
+  .question {
+    font-weight: 600;
+    overflow-wrap: anywhere;
+  }
+  .answer {
+    padding: 0.6rem 0.8rem;
+    border-top: 1px solid var(--sl-color-hairline);
+  }
+  .answer > :global(:first-child) {
+    margin-top: 0;
+  }
+  .answer > :global(:last-child) {
+    margin-bottom: 0;
+  }
+</style>

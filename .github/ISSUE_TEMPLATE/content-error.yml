@@ -1,0 +1,25 @@
+name: Сообщить об ошибке или неточности / Повідомити про помилку або неточність
+description: Нашли ошибку, устаревшие данные или непонятное место / Знайшли помилку, застарілі дані або незрозуміле місце
+labels: [content]
+body:
+  - type: input
+    id: page
+    attributes:
+      label: Страница / Сторінка
+      description: Адрес страницы или название урока / Адреса сторінки або назва уроку
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: Что не так / Що не так
+      description: Опишите своими словами, можно по-русски или по-украински / Опишіть своїми словами, можна російською або українською
+    validations:
+      required: true
+  - type: textarea
+    id: suggestion
+    attributes:
+      label: Как, по-вашему, должно быть / Як, на вашу думку, має бути
+      description: Необязательно. Если есть источник, вставьте ссылку / Необов'язково. Якщо є джерело, вставте посилання
+    validations:
+      required: false
